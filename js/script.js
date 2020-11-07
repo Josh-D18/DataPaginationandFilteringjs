@@ -17,13 +17,16 @@ Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
 
+// The showPage function which displays the list of people in the array on the screen
+
 const showPage = (list, page) => {
-   let start = (page * list.length) - list.length;
-   let end = page * list.length;
+   // Defining the startIndex and endIndex as well as the ul.
+   let start = (page * 9) - 9;
+   let end = page * 9;
    let ul = document.querySelector('.student-list');
    
-
    ul.innerHTML = '';
+
    for (let i = 0; i < list.length; i++){
       if (i >= start && i < end){
          let html = ` <li class="student-item cf">
@@ -46,13 +49,13 @@ Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 function addPagination(list){
-   const pageNumber = 9;
+   const numOfPages = Math.ceil(list.length / 9);
    let ul = document.querySelector('.link-list');
 
    ul.innerHTML = '';
 
    
-   for (let i = 1; i <= pageNumber; i++){
+   for (let i = 1; i <= numOfPages; i++){
       let li = document.createElement('li');
       let button = document.createElement('button');
 
@@ -63,24 +66,25 @@ function addPagination(list){
       ul.appendChild(li);
    }
 
-   let button = document.querySelectorAll('.link-list li button');
-   
-   for (let i = 0; i < button.length; i++){
-      button[i].addEventListener('click', () => {
-         
-      if (button[i].className === 'active'){
-         button[i].className = '';
-      } else{
-         button[i].classList.add('active');
+   ul.querySelectorAll('button')[0].className = 'active';
+
+
+   ul.addEventListener('click', (e) =>{
+      if (e.target.tagName === "BUTTON"){
+         ul.querySelector('.active').classList.remove('active');
+         e.target.className = 'active';
+         showPage(list,e.target.textContent)
+         console.log(e.target)
       }
-      console.log(showPage(list))
-      console.log(button)
-
    })
-}}
+}
 
+// Search Component
 
+function Search(){
 
+   
+}
 
 
 // Call functions
