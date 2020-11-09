@@ -74,19 +74,51 @@ function addPagination(list){
          ul.querySelector('.active').classList.remove('active');
          e.target.className = 'active';
          showPage(list,e.target.textContent)
-         console.log(e.target)
       }
    })
 }
 
 // Search Component
 
-function Search(){
+function search(list){
+   // Creating Search Bar
+   let search = `<label for="search" class="student-search">
+   <input id="search" placeholder="Search by name...">
+   <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+   </label>`
+   let header = document.querySelector('.header');
+   header.insertAdjacentHTML('beforeend', search);
 
+   // Adding Functionality To Search Bar
+   let searchIcon = document.querySelector('img');
+   let searchBar = document.querySelector('.student-search');
+   let bar = document.querySelector('#search');
    
+   searchIcon.addEventListener('click', (e) =>{
+      
+      for (let i = 0; i < list.length; i++){
+         let input = bar.value.toLowerCase();
+         let name = list[i].name.first.toLowerCase();
+         let arr = list[i];
+         
+         if(input.length !== 0 && input.includes(name)){
+            showPage(list,1);
+            console.log(arr, showPage(list,i))
+         }
+      }
+   })
+
+   // searchBar.addEventListener('onkeyup', ()=>{
+   //    if(input.includes(name)){
+   //       let arr = list[i];
+   //       showPage(arr,1);
+   //       console.log(arr)
+   //    }
+   // })
 }
 
 
 // Call functions
-showPage(data,1)
-addPagination(data)
+showPage(data,1);
+addPagination(data);
+search(data);
