@@ -91,31 +91,52 @@ function search(list){
 
    // Adding Functionality To Search Bar
    let searchIcon = document.querySelector('img');
-   let searchBar = document.querySelector('.student-search');
    let bar = document.querySelector('#search');
-   
-   searchIcon.addEventListener('click', (e) =>{
-      
-      for (let i = 0; i < list.length; i++){
-         let input = bar.value.toLowerCase();
-         let name = list[i].name.first.toLowerCase();
-         let arr = list[i];
-         
-         if(input.length !== 0 && input.includes(name)){
-            showPage(list,1);
-            console.log(arr, showPage(list,i))
-         }
-      }
-   })
+   let arr = [];
+   let studentItems = document.querySelectorAll('.student-item.cf');
+   let ul = document.querySelector('.link-list');
 
-   // searchBar.addEventListener('onkeyup', ()=>{
-   //    if(input.includes(name)){
-   //       let arr = list[i];
-   //       showPage(arr,1);
-   //       console.log(arr)
-   //    }
-   // })
+   let eventFunc = function (){
+         for (let i = 0; i < list.length; i++){
+            let input = bar.value.toLowerCase();
+            let names = list[i].name.first.toLowerCase();
+            console.log(list[i])
+
+            if(input.length !== 0 && names.includes(input)){
+               arr.push(list[i]);
+               studentItems[i].style.display = '';
+               console.log(arr);
+            } else{
+               studentItems[i].style.display = 'none';
+            };
+
+            // if(!names.includes(input)){
+            //    let html = `No results found`
+            //    ul.insertAdjacentText('afterbegin',html)
+            // }
+
+            if(input.length === 0){
+               studentItems[i].style.display = '';
+               console.log(studentItems)
+            } else{
+               console.log(studentItems)
+            }
+         }
+         showPage(arr,1);
+         
+   }
+   let eventKeyFunc = function (){
+      let numOfPages = Math.ceil(arr.length / 9)
+      for (let i = 0; i < numOfPages.length; i++){
+         addPagination(list);
+      };
+   }
+
+   searchIcon.addEventListener('click', eventFunc);
+   bar.addEventListener('keyup', eventFunc);
+   bar.addEventListener('keyup', eventKeyFunc);
 }
+
 
 
 // Call functions
