@@ -48,6 +48,7 @@ const showPage = (list, page) => {
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
+
 function addPagination(list){
    const numOfPages = Math.ceil(list.length / 9);
    let ul = document.querySelector('.link-list');
@@ -117,18 +118,14 @@ function search(list){
 
             if(input.length === 0){
                studentItems[i].style.display = '';
-               console.log(studentItems)
-            } else{
-               console.log(studentItems)
             }
          }
          showPage(arr,1);
-         
    }
+
    let eventKeyFunc = function (){
-      let numOfPages = Math.ceil(arr.length / 9)
-      for (let i = 0; i < numOfPages.length; i++){
-         addPagination(list);
+      for (let i = 0; i < arr.length; i++){
+         addPagination(arr);
       };
    }
 
