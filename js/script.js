@@ -17,9 +17,10 @@ Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
 
-// The showPage function which displays the list of people in the array on the screen
+// The showPage function will display the list of people in the array on the screen
 
 const showPage = (list, page) => {
+
    // Defining the startIndex and endIndex as well as the ul.
    let start = (page * 9) - 9;
    let end = page * 9;
@@ -48,6 +49,8 @@ const showPage = (list, page) => {
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
+
+// The addPagination function will create the pagination buttons
 
 function addPagination(list){
    const numOfPages = Math.ceil(list.length / 9);
@@ -79,61 +82,92 @@ function addPagination(list){
    })
 }
 
-// Search Component
 
-function search(list){
-   // Creating Search Bar
+
+// Search Functionality 
+
+// The createSearchBar will create the Search Bar
+function createSearchBar(){
+
    let search = `<label for="search" class="student-search">
    <input id="search" placeholder="Search by name...">
    <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
    </label>`
    let header = document.querySelector('.header');
    header.insertAdjacentHTML('beforeend', search);
-
-   // Adding Functionality To Search Bar
-   let searchIcon = document.querySelector('img');
-   let bar = document.querySelector('#search');
-   let arr = [];
-   let studentItems = document.querySelectorAll('.student-item.cf');
-   let ul = document.querySelector('.link-list');
-
-   let eventFunc = function (){
-         for (let i = 0; i < list.length; i++){
-            let input = bar.value.toLowerCase();
-            let names = list[i].name.first.toLowerCase();
-            console.log(list[i])
-
-            if(input.length !== 0 && names.includes(input)){
-               arr.push(list[i]);
-               studentItems[i].style.display = '';
-               console.log(arr);
-            } else{
-               studentItems[i].style.display = 'none';
-            };
-
-            // if(!names.includes(input)){
-            //    let html = `No results found`
-            //    ul.insertAdjacentText('afterbegin',html)
-            // }
-
-            if(input.length === 0){
-               studentItems[i].style.display = '';
-            }
-         }
-         showPage(arr,1);
-   }
-
-   let eventKeyFunc = function (){
-      for (let i = 0; i < arr.length; i++){
-         addPagination(arr);
-      };
-   }
-
-   searchIcon.addEventListener('click', eventFunc);
-   bar.addEventListener('keyup', eventFunc);
-   bar.addEventListener('keyup', eventKeyFunc);
 }
 
+createSearchBar();
+
+
+// Defining the search button, input bar and students list
+
+let searchIconButton = document.querySelector('button');
+let inputBar = document.querySelector('#search');
+let studentsList = document.querySelector('.student-list');
+
+
+// The Search function will listen for the click and keyup events for the search icon and input bar
+
+function search(list){
+// Input button click event
+   if(searchIconButton){
+      searchIconButton.addEventListener('click', ()=> {
+         let arr = [];
+         let input = inputBar.value.toLowerCase();
+      
+            for (let i = 0; i < list.length; i++){
+               let firstName = list[i].name.first.toLowerCase();
+               let lastName = list[i].name.last.toLowerCase();
+         
+               if(firstName.includes(input) || lastName.includes(input)){
+                  arr.push(list[i]);
+               } 
+            }
+            // If the arr has no matches it should return no results
+            if (arr.length === 0){
+               studentsList.innerHTML = '';
+               studentsList.insertAdjacentHTML('beforeend', `
+               <h1>No results were found</h1>
+            `);
+            }else{
+               showPage(arr,1);
+               addPagination(arr);
+            }
+      });
+   }
+
+// Input Bar Keyup Event
+   if(inputBar){
+      inputBar.addEventListener('keyup', () => {
+         let arr = [];
+         let input = inputBar.value.toLowerCase();
+      
+            for (let i = 0; i < list.length; i++){
+               let firstName = list[i].name.first.toLowerCase();
+               let lastName = list[i].name.last.toLowerCase();
+         
+               if(firstName.includes(input) || lastName.includes(input)){
+                  arr.push(list[i]);
+               } 
+            }
+            // If the arr has no matches it should return no results
+            if (arr.length === 0){
+               studentsList.innerHTML = '';
+               studentsList.insertAdjacentHTML('beforeend', `
+               <h1>No results were found</h1>
+            `);
+            }else{
+               showPage(arr,1);
+               addPagination(arr);
+            }
+
+            if (input.length === 0){
+               studentsList.style.display = '';
+            }
+      });
+   } 
+}
 
 
 // Call functions
