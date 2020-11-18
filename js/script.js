@@ -104,7 +104,7 @@ createSearchBar();
 
 let searchIconButton = document.querySelector('button');
 let inputBar = document.querySelector('#search');
-let studentsList = document.querySelector('.student-list');
+let usersList = document.querySelector('.student-list');
 
 
 // The Search function will listen for the click and keyup events for the search icon and input bar
@@ -126,8 +126,8 @@ function search(list){
             }
             // If the arr has no matches it should return no results
             if (arr.length === 0){
-               studentsList.innerHTML = '';
-               studentsList.insertAdjacentHTML('beforeend', `
+               usersList.innerHTML = '';
+               usersList.insertAdjacentHTML('beforeend', `
                <h1>No results were found</h1>
             `);
             }else{
@@ -153,8 +153,8 @@ function search(list){
             }
             // If the arr has no matches it should return no results
             if (arr.length === 0){
-               studentsList.innerHTML = '';
-               studentsList.insertAdjacentHTML('beforeend', `
+               usersList.innerHTML = '';
+               usersList.insertAdjacentHTML('beforeend', `
                <h1>No results were found</h1>
             `);
             }else{
@@ -163,7 +163,7 @@ function search(list){
             }
 
             if (input.length === 0){
-               studentsList.style.display = '';
+               usersList.style.display = '';
             }
       });
    } 
