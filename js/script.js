@@ -52,7 +52,7 @@ This function will create and insert/append the elements needed for the paginati
 
 // The addPagination function will create the pagination buttons
 
-function addPagination(list){
+function addPagination(list, currentPage = null, totalPages = null){
    const numOfPages = Math.ceil(list.length / 9);
    let ul = document.querySelector('.link-list');
 
@@ -100,16 +100,17 @@ function createSearchBar(){
 createSearchBar();
 
 
-// Defining the search button, input bar and students list
+// Defining the search button, input bar, user list and the pagination buttons
 
 let searchIconButton = document.querySelector('button');
 let inputBar = document.querySelector('#search');
 let usersList = document.querySelector('.student-list');
-
+let ul = document.querySelector('.link-list');
 
 // The Search function will listen for the click and keyup events for the search icon and input bar
 
 function search(list){
+   
 // Input button click event
    if(searchIconButton){
       searchIconButton.addEventListener('click', ()=> {
@@ -126,10 +127,7 @@ function search(list){
             }
             // If the arr has no matches it should return no results
             if (arr.length === 0){
-               usersList.innerHTML = '';
-               usersList.insertAdjacentHTML('beforeend', `
-               <h1>No results were found</h1>
-            `);
+               usersList.innerHTML = '<h1>No results were found</h1>';
             }else{
                showPage(arr,1);
                addPagination(arr);
@@ -153,10 +151,8 @@ function search(list){
             }
             // If the arr has no matches it should return no results
             if (arr.length === 0){
-               usersList.innerHTML = '';
-               usersList.insertAdjacentHTML('beforeend', `
-               <h1>No results were found</h1>
-            `);
+               usersList.innerHTML = '<h1>No results were found</h1>';
+               ul.innerHTML = '';
             }else{
                showPage(arr,1);
                addPagination(arr);
