@@ -52,14 +52,14 @@ This function will create and insert/append the elements needed for the paginati
 
 // The addPagination function will create the pagination buttons
 
-function addPagination(list, currentPage = null, totalPages = null){
-   const numOfPages = Math.ceil(list.length / totalPages);
+function addPagination(list){
+   const numOfPages = Math.ceil(list.length / 9);
    let ul = document.querySelector('.link-list');
 
    ul.innerHTML = '';
 
    
-   for (let i = currentPage; i <= numOfPages; i++){
+   for (let i = 1; i <= numOfPages; i++){
       let li = document.createElement('li');
       let button = document.createElement('button');
 
@@ -168,5 +168,5 @@ function search(list){
 
 // Call functions
 showPage(data,1);
-addPagination(data, 1, 9);
+addPagination(data);
 search(data);
